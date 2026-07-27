@@ -1,6 +1,6 @@
 // Service worker: cachea todo en la instalación → el juego anda 100% offline.
 // Al tocar cualquier archivo hay que subir VER, si no el celu sirve la copia vieja.
-const VER = "acu-20260720110020";
+const VER = "acu-20260727122753";
 const ASSETS = [
   "./",
   "./index.html",
