@@ -177,6 +177,28 @@ code {
   color: var(--muted); font-size: 0.78rem;
 }
 
+/* ── colecciones (por documento) ── */
+.col {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+}
+.col.abierta { border-color: var(--accent); }
+.col-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; min-height: var(--tap); cursor: pointer; user-select: none;
+}
+.col-head .nm { flex: 1; font-weight: 500; }
+.col-head .ct { color: var(--muted); font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+.col-body { padding: 0 14px 14px; }
+.col-secs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.colsec {
+  font-size: 0.82rem; padding: 8px 12px; min-height: 40px;
+  background: #0f131a; border: 1px solid var(--border); border-radius: 999px;
+  color: var(--muted); font-family: inherit; cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.colsec.on { border-color: var(--accent); color: var(--fg); background: #172033; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

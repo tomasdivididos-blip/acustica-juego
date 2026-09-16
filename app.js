@@ -1,4 +1,4 @@
-import { BANCO, AREAS } from "./banco/index.js";
+import { BANCO, AREAS, COLECCIONES } from "./banco/index.js";
 import { mulberry32 } from "./gen.js";
 
 const RONDA = 10;              // preguntas por partida
@@ -38,6 +38,9 @@ let i = 0;          // índice actual
 let racha = 0;
 let ronda = { ok: 0, cats: {} };
 let esRepaso = false;
+let repetir = () => arrancar(false);  // cómo rehacer la última ronda (botón "Otra ronda")
+let colAbierta = null;                // id de la colección desplegada en el menú
+const colSel = {};                    // fuente → Set de secciones tildadas
 
 /**
  * Materializa un ítem del banco.
@@ -69,26 +72,39 @@ function barajar(arr) {
   return a;
 }
 
-function arrancar(repaso = false) {
-  esRepaso = repaso;
-  const fuente = repaso
-    ? BANCO.filter((q) => S.errores.includes(q.id))
-    : BANCO.filter((q) => S.areas.includes(q.area));
-
-  if (!fuente.length) return;
-
+/** Juega una ronda con cualquier subconjunto del banco (áreas, repaso o colección). */
+function arrancarItems(items) {
+  if (!items.length) return;
   // Los generadores pueden repetirse en una ronda (cada tirada da datos nuevos);
   // las preguntas fijas, no.
-  let sel = barajar(fuente).slice(0, RONDA);
-  const gens = fuente.filter((q) => q.gen);
+  let sel = barajar(items).slice(0, RONDA);
+  const gens = items.filter((q) => q.gen);
   while (sel.length < RONDA && gens.length) {
     sel.push(gens[Math.floor(Math.random() * gens.length)]);
   }
-
   cola = sel.map(materializar);
   i = 0; racha = 0; ronda = { ok: 0, cats: {} };
   ver("juego");
   pintar();
+}
+
+function arrancar(repaso = false) {
+  esRepaso = repaso;
+  repetir = () => arrancar(repaso);
+  arrancarItems(repaso
+    ? BANCO.filter((q) => S.errores.includes(q.id))
+    : BANCO.filter((q) => !q.fuente && S.areas.includes(q.area)));
+}
+
+/** Juega una colección (documento), acotada a las secciones tildadas (o todas). */
+function arrancarColeccion(fuenteId, secciones) {
+  esRepaso = false;
+  const activas = secciones && secciones.size ? secciones : null;
+  const items = BANCO.filter((q) =>
+    q.fuente === fuenteId && (!activas || activas.has(q.seccion)));
+  if (!items.length) return;
+  repetir = () => arrancarColeccion(fuenteId, secciones);
+  arrancarItems(items);
 }
 
 function pintar() {
@@ -209,9 +225,64 @@ function pintarMenu() {
     box.appendChild(el);
   }
 
-  const disp = BANCO.filter((q) => S.areas.includes(q.area)).length;
-  const gens = BANCO.filter((q) => q.gen).length;
-  $("n-banco").textContent = `${disp} de ${BANCO.length} ítems · ${gens} numéricos infinitos`;
+  // Colecciones (documentos aportados). Sólo se muestran si hay alguna.
+  const colBox = $("colecciones");
+  const hayCol = COLECCIONES.length > 0;
+  $("col-lbl").hidden = !hayCol;
+  colBox.hidden = !hayCol;
+  colBox.innerHTML = "";
+  for (const col of COLECCIONES) {
+    const abierta = colAbierta === col.id;
+    const card = document.createElement("div");
+    card.className = "col" + (abierta ? " abierta" : "");
+
+    const head = document.createElement("div");
+    head.className = "col-head";
+    head.setAttribute("role", "button");
+    head.setAttribute("tabindex", "0");
+    head.innerHTML = `<span class="nm">${col.nm}</span>` +
+      `<span class="ct">${col.n} · ${col.secciones.length} secc. ${abierta ? "▾" : "▸"}</span>`;
+    const toggle = () => { colAbierta = abierta ? null : col.id; pintarMenu(); };
+    head.onclick = toggle;
+    head.onkeydown = (e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(); } };
+    card.appendChild(head);
+
+    if (abierta) {
+      if (!colSel[col.id]) colSel[col.id] = new Set(col.secciones.map((s) => s.nm)); // default: todas
+      const sel = colSel[col.id];
+      const body = document.createElement("div");
+      body.className = "col-body";
+
+      const chips = document.createElement("div");
+      chips.className = "col-secs";
+      for (const s of col.secciones) {
+        const chip = document.createElement("button");
+        chip.className = "colsec" + (sel.has(s.nm) ? " on" : "");
+        chip.textContent = `${s.nm} (${s.n})`;
+        chip.onclick = () => {
+          if (sel.has(s.nm)) sel.delete(s.nm); else sel.add(s.nm);
+          if (!sel.size) sel.add(s.nm); // nunca dejar cero secciones
+          pintarMenu();
+        };
+        chips.appendChild(chip);
+      }
+      body.appendChild(chips);
+
+      const jugar = document.createElement("button");
+      jugar.className = "btn primary";
+      jugar.textContent = "Jugar colección";
+      jugar.onclick = () => arrancarColeccion(col.id, sel);
+      body.appendChild(jugar);
+
+      card.appendChild(body);
+    }
+    colBox.appendChild(card);
+  }
+
+  const bancoAreas = BANCO.filter((q) => !q.fuente);
+  const disp = bancoAreas.filter((q) => S.areas.includes(q.area)).length;
+  const gens = bancoAreas.filter((q) => q.gen).length;
+  $("n-banco").textContent = `${disp} de ${bancoAreas.length} ítems · ${gens} numéricos infinitos`;
   $("btn-jugar").disabled = !disp;
 }
 
@@ -226,7 +297,7 @@ function ver(id) {
 $("btn-jugar").onclick  = () => arrancar(false);
 $("btn-repaso").onclick = () => arrancar(true);
 $("btn-next").onclick   = siguiente;
-$("btn-otra").onclick   = () => arrancar(esRepaso && S.errores.length > 0);
+$("btn-otra").onclick   = () => { if (esRepaso && !S.errores.length) return arrancar(false); repetir(); };
 $("btn-menu").onclick   = () => ver("menu");
 $("btn-salir").onclick  = () => ver("menu");
 $("btn-reset").onclick  = () => {

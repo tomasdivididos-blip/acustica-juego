@@ -149,4 +149,26 @@ rango al cargar: mirá la consola.
 
 `sw.js` cachea todo con `const VER = "acu-v1"`. Si no la subís, el celular sigue
 sirviendo la copia vieja y no vas a ver tus cambios. Bumpear a `acu-v2`, `v3`…
-y agregar los archivos nuevos al array `ASSETS`.
+y agregar los archivos nuevos al array `ASSETS`. `publicar.sh` ya bumpea VER solo.
+
+## Colecciones (jugar por documento y sección)
+
+Además del banco por áreas, hay un modo "Colecciones": preguntas atadas a un
+documento (`fuente`) y a sus secciones (`seccion`), para estudiar ese material
+aparte. Diseño en `plan_pdf_secciones.md`.
+
+- Un archivo por documento en `banco/colecciones/` (ej. `everest-mha.js`), que
+  exporta su array y aplica `fuente` con `.map()` al final. Cada ítem lleva
+  `seccion` + `cat` (usar la sección) + `dif` + `q`/`opts`/`ans`/`why`/`src`.
+  NO lleva `area`: los ítems de colección NO entran al modo áreas.
+- Registrar el archivo en `banco/index.js`: importarlo, sumarlo a `COLS` y darle
+  nombre visible en `COLECCION_META`. `COLECCIONES` se deriva solo (agrupa por
+  `fuente` y lista `secciones`).
+- Sumar el archivo al `ASSETS` de `sw.js` (offline). `check_banco.py` y
+  `build_artifact.py` ya escanean `banco/colecciones/*.js` automáticamente.
+- Misma regla de oro de opciones (±5) y `check_banco.py` la valida; además exige
+  que todo ítem de colección tenga `seccion`.
+
+Las preguntas se pre-generan en el chat a partir del PDF que aporta el usuario
+(el juego no parsea PDF). Cuidado copyright: preguntas propias, sin pegar
+párrafos largos del original en el `why`.

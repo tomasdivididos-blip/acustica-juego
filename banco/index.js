@@ -5,6 +5,7 @@ import { FUENTES } from "./fuentes.js";
 import { PSICOACUSTICA } from "./psicoacustica.js";
 import { NUMERICA } from "./numerica.js";
 import { NUMERICOS } from "./numericos.js";
+import { EVEREST_MHA } from "./colecciones/everest-mha.js";
 
 /** Áreas del juego — espejan la clasificación de referencias/_indice.md. */
 export const AREAS = [
@@ -14,10 +15,33 @@ export const AREAS = [
   { id: "numerica",      nm: "Numérica y FEM" },
 ];
 
+// Colecciones: preguntas atadas a un documento aportado (ver plan_pdf_secciones.md).
+// Cada archivo en colecciones/ exporta su array; acá se registra su nombre visible.
+const COLS = [EVEREST_MHA];
+const COLECCION_META = {
+  "everest-mha": "Everest, Master Handbook (muestra)",
+};
+
 export const BANCO = [
   ...GEOMETRIA, ...FUENTES, ...PSICOACUSTICA, ...NUMERICA,
   ...NUMERICOS,
+  ...COLS.flat(),
 ];
+
+/**
+ * Colecciones para el menú: una por documento (`fuente`), con sus secciones.
+ * Los ítems de colección NO tienen `area`, así que no aparecen en el modo áreas.
+ */
+export const COLECCIONES = [...COLS.flat().reduce((m, q) => {
+  if (!m.has(q.fuente)) m.set(q.fuente, []);
+  m.get(q.fuente).push(q);
+  return m;
+}, new Map())].map(([id, items]) => {
+  const secciones = [...new Set(items.map((q) => q.seccion))].map((nm) => ({
+    nm, n: items.filter((q) => q.seccion === nm).length,
+  }));
+  return { id, nm: COLECCION_META[id] || id, n: items.length, secciones };
+});
 
 /** Tolerancia de largo entre la opción más larga y la más corta, en caracteres. */
 export const SPREAD_MAX = 5;
@@ -43,7 +67,12 @@ export function auditar(banco = BANCO) {
   for (const q of banco) {
     if (vistos.has(q.id)) problemas.push(`id duplicado: ${q.id}`);
     vistos.add(q.id);
-    if (!AREAS.some((a) => a.id === q.area)) problemas.push(`${q.id}: área inválida "${q.area}"`);
+    // Ítem de colección: se identifica por `fuente` + `seccion` (no por área).
+    if (q.fuente) {
+      if (!q.seccion) problemas.push(`${q.id}: fuente sin seccion`);
+    } else if (!AREAS.some((a) => a.id === q.area)) {
+      problemas.push(`${q.id}: área inválida "${q.area}"`);
+    }
     if (!q.gen) {
       if (!Array.isArray(q.opts) || q.opts.length !== 4) { problemas.push(`${q.id}: no tiene 4 opciones`); continue; }
       if (!(q.ans >= 0 && q.ans <= 3)) { problemas.push(`${q.id}: ans fuera de rango`); continue; }
