@@ -3,7 +3,8 @@
 // Colección atada a un documento y sus secciones (capítulos). Cada ítem lleva
 // `seccion` + `cat`; `fuente` se aplica con .map() al final. NO lleva `area`.
 // Misma regla de oro: 4 opciones del mismo largo (±5). Validar con check_banco.py.
-// Páginas: impresa = pág. PDF − 18 (offset verificado). Ver plan_pdf_secciones.md.
+// Páginas: impresa = pág. PDF − 21 (offset verificado contra el PDF, sep 2026).
+// Ver plan_pdf_secciones.md.
 
 export const KUTTRUFF_RA = [
 
@@ -20,7 +21,7 @@ export const KUTTRUFF_RA = [
     ],
     ans: 0,
     why: "Kuttruff define la frecuencia de Schroeder como fs ≈ 2000·√(T/V) (SI): por encima de ella hay solapamiento fuerte de resonancias (≳3 modos por ancho de banda) y vale la acústica estadística; por debajo, el campo es modal y depende de la posición. Es el límite entre el tratamiento de onda y el estadístico.",
-    src: "Kuttruff, Room Acoustics, cap. 3, p. 71",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.44), p. 67",
   },
   {
     id: "col-ku-densidad-modal",
@@ -34,7 +35,7 @@ export const KUTTRUFF_RA = [
     ],
     ans: 0,
     why: "El número de modos por debajo de f va como (4π/3)·V·(f/c)³, así que su derivada (la densidad modal) crece con f². Por eso los modos se agolpan cada vez más rápido y a partir de la frecuencia de Schroeder ya no tiene sentido contarlos de a uno. Es la base del cruce entre régimen modal y difuso.",
-    src: "Kuttruff, Room Acoustics, cap. 3, p. 70",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.27), p. 59",
   },
   {
     id: "col-ku-T-delta",
@@ -48,7 +49,7 @@ export const KUTTRUFF_RA = [
     ],
     ans: 0,
     why: "La energía decae como e^(−2δt). Una caída de 60 dB equivale a e^(−2δT) = 10⁻⁶, o sea 2δT = 6·ln(10) = 13,8, de donde T = 6,91/δ. El δ (constante de amortiguamiento) resume las pérdidas por absorción, y liga el decaimiento temporal con el ancho de banda de cada modo (Q). Es la forma «de onda» del tiempo de reverberación.",
-    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.44), p. 74",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.44), p. 67",
   },
 
   // ─── Cap. 4: Acústica geométrica ───
@@ -64,7 +65,7 @@ export const KUTTRUFF_RA = [
     ],
     ans: 0,
     why: "En una reflexión difusa ideal, la energía se re-irradia según la ley de Lambert: la intensidad en una dirección va con el coseno del ángulo respecto de la normal, independientemente de por dónde llegó el sonido. Es el modelo opuesto a la reflexión especular (ángulo igual al de incidencia) y el que usan los métodos de radiosidad acústica.",
-    src: "Kuttruff, Room Acoustics, cap. 4, p. 99",
+    src: "Kuttruff, Room Acoustics, cap. 4 (Ec. 4.24), p. 96",
   },
   {
     id: "col-ku-imagenes",
@@ -78,7 +79,7 @@ export const KUTTRUFF_RA = [
     ],
     ans: 0,
     why: "En una caja rectangular las imágenes forman una retícula regular que llena el espacio sin huecos ni solapamientos. En salas de forma irregular las imágenes se multiplican de manera desordenada y sus «espacios imagen» se solapan, así que el método pierde exactitud y se vuelve impracticable a orden alto: ahí entran los métodos híbridos con rayos.",
-    src: "Kuttruff, Room Acoustics, cap. 4, p. 88",
+    src: "Kuttruff, Room Acoustics, cap. 4, p. 84",
   },
 
   // ─── Cap. 5: Reverberación ───
@@ -94,7 +95,7 @@ export const KUTTRUFF_RA = [
     ],
     ans: 0,
     why: "En campo difuso, un rayo recorre en promedio 4V/S entre rebote y rebote. Dividiendo por c da el tiempo medio entre reflexiones, y contando cuántas hacen falta para caer 60 dB se llega a la fórmula de reverberación. Es la bisagra entre la visión de rayos y la acústica estadística, y de donde sale la constante de Sabine.",
-    src: "Kuttruff, Room Acoustics, cap. 5, p. 104",
+    src: "Kuttruff, Room Acoustics, cap. 5, p. 110",
   },
   {
     id: "col-ku-eyring",
@@ -108,7 +109,7 @@ export const KUTTRUFF_RA = [
     ],
     ans: 0,
     why: "Eyring reemplaza S·ᾱ por −S·ln(1−ᾱ). Como −ln(1−ᾱ) ≈ ᾱ para ᾱ chico, coincide con Sabine en salas poco absorbentes; con ᾱ alto, Sabine sobrestima el RT (supone absorción continua, cuando cada reflexión se come una fracción grande). En el límite ᾱ = 1, Eyring da RT cero (correcto) y Sabine un valor finito absurdo.",
-    src: "Kuttruff, Room Acoustics, cap. 5, p. 112",
+    src: "Kuttruff, Room Acoustics, cap. 5 (Ec. 5.24), p. 113",
   },
 
   // ─── Cap. 6: Absorción ───
@@ -124,7 +125,7 @@ export const KUTTRUFF_RA = [
     ],
     ans: 0,
     why: "El poroso convierte en calor la velocidad de partícula del aire que atraviesa sus poros, por fricción viscosa. Por eso trabaja donde la velocidad es alta (a λ/4 de una pared rígida) y necesita espesor comparable a la longitud de onda para actuar en graves. Es un mecanismo distinto del resonador (masa-resorte), que es de banda angosta.",
-    src: "Kuttruff, Room Acoustics, cap. 6, p. 128",
+    src: "Kuttruff, Room Acoustics, cap. 6, p. 131",
   },
   {
     id: "col-ku-resonador",
@@ -138,7 +139,289 @@ export const KUTTRUFF_RA = [
     ],
     ans: 0,
     why: "El resonador de Helmholtz es un sistema masa-resorte: la masa es el tapón de aire del cuello y el resorte, el aire de la cavidad, con f₀ = (c/2π)·√(A/(V·L_eff)). Es de banda angosta y muy eficiente en su frecuencia, ideal para un modo puntual en graves. El relleno poroso amortigua y ensancha la banda, a costa del pico de absorción.",
-    src: "Kuttruff, Room Acoustics, cap. 6, p. 135",
+    src: "Kuttruff, Room Acoustics, cap. 6, p. 132",
+  },
+
+  // ─── Cap. 3: Ondas en la sala (ampliación, 20 preguntas) ───
+  {
+    id: "col-ku3-helmholtz",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 2,
+    q: "La teoría de ondas parte de la ecuación de Helmholtz, que es…",
+    opts: [
+      "la ecuación de onda con la parte temporal armónica ya separada.",
+      "la ecuación de onda resuelta paso a paso en el tiempo directo.",
+      "una aproximación de rayos válida solo con paredes muy lisas.",
+      "la ley de reflexión especular aplicada a una pared por vez.",
+    ],
+    ans: 0,
+    why: "Suponiendo una dependencia temporal e^(iωt), la ecuación de onda se reduce a Δp + k²p = 0, con k = ω/c. Es una ecuación estacionaria en el espacio: la incógnita es la distribución de presión a una frecuencia dada. Sobre ella se imponen las condiciones de contorno de las paredes, y ese es el punto de partida de toda la teoría modal de la sala.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.1), p. 52",
+  },
+  {
+    id: "col-ku3-locally-reacting",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "Una pared «de reacción local» se caracteriza porque su impedancia…",
+    opts: [
+      "no depende del ángulo con que le llega el sonido incidente.",
+      "crece de forma lineal con la frecuencia de la onda incidente.",
+      "solo queda definida si la pared es perfectamente rígida.",
+      "depende de la presión en todos los puntos vecinos a la vez.",
+    ],
+    ans: 0,
+    why: "En una pared de reacción local, la velocidad normal en cada punto depende solo de la presión en ese mismo punto: la impedancia de pared Z (o la específica ζ = Z/ρ₀c) no depende del ángulo de incidencia ni de la distribución espacial de la onda. Esto simplifica la condición de contorno a Z·(∂p/∂n) + iωρ₀p = 0 y es la hipótesis estándar de la teoría modal.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.3), p. 52",
+  },
+  {
+    id: "col-ku3-ortogonalidad",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "Las autofunciones (modos) de una sala forman un conjunto…",
+    opts: [
+      "ortogonal: su integral de producto en el volumen se anula.",
+      "que solo es ortogonal si la sala es un cubo perfecto dado.",
+      "siempre real, aun cuando las paredes absorben energía.",
+      "finito, con un número de modos fijo por debajo de la sala.",
+    ],
+    ans: 0,
+    why: "Las autofunciones pₙ(r) son mutuamente ortogonales: ∫pₙpₘ dV = 0 para n ≠ m, e igual a una constante Kₙ para n = m. Esta ortogonalidad permite desarrollar la fuente y la solución como series de modos y despejar los coeficientes término a término. Cuando las paredes tienen absorción, autofunciones y autovalores se vuelven complejos, pero la maquinaria modal sigue valiendo.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.5), p. 52",
+  },
+  {
+    id: "col-ku3-degenerados",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 2,
+    q: "Se habla de autovalores «degenerados» cuando…",
+    opts: [
+      "varias autofunciones distintas comparten el mismo autovalor.",
+      "un modo queda sin energía por absorción total de la pared.",
+      "el autovalor se vuelve complejo por pérdidas en la pared.",
+      "dos salas distintas comparten una misma frecuencia propia.",
+    ],
+    ans: 0,
+    why: "Hay degeneración cuando dos o más autofunciones (modos con estructura espacial distinta) pertenecen al mismo autovalor kₙ, o sea a la misma frecuencia propia. El caso típico es la sala cúbica: por simetría, modos como (1,0,0), (0,1,0) y (0,0,1) caen a la misma frecuencia. La degeneración concentra energía en pocas frecuencias, lo que acústicamente es indeseable.",
+    src: "Kuttruff, Room Acoustics, cap. 3, p. 52",
+  },
+  {
+    id: "col-ku3-green-reciprocidad",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "La función de Green de la sala es simétrica en r y r₀; esto expresa…",
+    opts: [
+      "el teorema de reciprocidad entre fuente y receptor.",
+      "que la energía se conserva a lo largo de cada rayo.",
+      "que el campo es difuso por encima de la frecuencia fs.",
+      "la ley de Sabine para el tiempo de reverberación real.",
+    ],
+    ans: 0,
+    why: "La presión producida por una fuente puntual es la función de Green de la sala, simétrica en las coordenadas de fuente r₀ y observación r. Intercambiar fuente y receptor da la misma presión: es el teorema de reciprocidad, muy útil en medición (a veces conviene poner el micrófono donde iría la fuente y viceversa). Vale exactamente, modo a modo, no solo en promedio.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.10), p. 54",
+  },
+  {
+    id: "col-ku3-delta-resonancia",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "En la función de transferencia de la sala, cada término aporta…",
+    opts: [
+      "una resonancia centrada en su frecuencia propia ωₙ.",
+      "una recta de pendiente fija a lo largo del eje real.",
+      "un cero exacto de presión en su frecuencia propia ωₙ.",
+      "un retardo puro sin ningún cambio en la amplitud dada.",
+    ],
+    ans: 0,
+    why: "Al escribir kₙ = ωₙ/c + iδₙ/c, cada término de la serie tiene un denominador que se hace mínimo cuando la frecuencia de excitación se acerca a ωₙ: la amplitud llega a un máximo, o sea una resonancia. Por eso las fₙ = ωₙ/2π se llaman frecuencias de resonancia (o eigenfrecuencias) y las δₙ son las constantes de amortiguamiento que fijan el ancho de cada pico.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.12), p. 54",
+  },
+  {
+    id: "col-ku3-separacion",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 2,
+    q: "En una sala rectangular de paredes rígidas, los kₓ permitidos valen…",
+    opts: [
+      "kₓ = nₓπ/Lₓ, con nₓ un entero no negativo cualquiera.",
+      "kₓ = nₓc/2Lₓ, ya expresado directamente en hertz reales.",
+      "cualquier valor real, sin cuantización por las paredes.",
+      "kₓ = π/(2Lₓ), fijo e independiente del orden nₓ del modo.",
+    ],
+    ans: 0,
+    why: "Con paredes rígidas la velocidad normal se anula en x = 0 y x = Lₓ, así que la solución es un coseno y la condición de tangente horizontal en ambos extremos obliga a kₓLₓ = múltiplo de π. Queda kₓ = nₓπ/Lₓ (e igual para y, z). Combinando los tres con kₓ²+k_y²+k_z² = k² se obtienen los autovalores y las eigenfrecuencias de la caja.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.18), p. 56",
+  },
+  {
+    id: "col-ku3-planos-nodales",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 2,
+    q: "En un modo (nₓ,n_y,n_z), los enteros nₓ, n_y, n_z indican…",
+    opts: [
+      "el número de planos nodales perpendiculares a cada eje.",
+      "la cantidad de reflexiones que sufre el modo por segundo.",
+      "el orden de la fuente imagen que genera ese modo dado.",
+      "los decibeles de caída del modo entre pared y pared.",
+    ],
+    ans: 0,
+    why: "La autofunción es un producto de tres cosenos; la presión se anula donde alguno de ellos vale cero, formando planos nodales equidistantes perpendiculares a cada eje. El entero nₓ es justamente el número de planos nodales perpendiculares al eje x (y análogamente n_y, n_z). A ambos lados de un plano nodal la presión instantánea tiene signo opuesto.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.22), p. 56",
+  },
+  {
+    id: "col-ku3-ocho-ondas",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "Un modo de una sala rectangular puede verse como la suma de…",
+    opts: [
+      "ocho ondas planas viajeras con distintas fases y signos.",
+      "dos ondas esféricas que salen desde el centro de la sala.",
+      "una única onda plana que rebota siempre en el mismo plano.",
+      "infinitas ondas cilíndricas centradas en cada arista real.",
+    ],
+    ans: 0,
+    why: "Escribiendo cada coseno como suma de dos exponenciales, la autofunción se reparte en ocho términos: ocho ondas planas viajeras cuyas direcciones surgen de las ocho combinaciones de signo de (±nₓ/Lₓ, ±n_y/Ly, ±n_z/Lz). Se cumple cos²θₓ + cos²θ_y + cos²θ_z = 1. Así el modo (onda estacionaria) equivale a ondas planas que se cruzan, base del puente onda–rayo.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.24), p. 57",
+  },
+  {
+    id: "col-ku3-axial-tang-obli",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 2,
+    q: "Un modo con un solo índice distinto de cero (p. ej. 2,0,0) es…",
+    opts: [
+      "axial: se propaga paralelo a una arista de la sala.",
+      "oblicuo: viaja en diagonal usando las tres dimensiones.",
+      "tangencial: corre paralelo a un par de paredes dado.",
+      "difuso: no tiene ninguna dirección de propagación clara.",
+    ],
+    ans: 0,
+    why: "Si solo un índice es distinto de cero, la propagación es paralela a un eje (a una arista): es un modo axial, el más fuerte. Con un índice nulo el modo es tangencial (paralelo a un par de paredes) y con los tres índices no nulos es oblicuo. Los axiales suelen dominar el rango grave de las salas pequeñas y son los que más problemas dan.",
+    src: "Kuttruff, Room Acoustics, cap. 3, p. 58",
+  },
+  {
+    id: "col-ku3-numero-modos",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "El número total de modos por debajo de una frecuencia f crece con…",
+    opts: [
+      "f³, como (4π/3)·V·(f/c)³, contando puntos en el octante.",
+      "f², proporcional al área total de las paredes de la sala.",
+      "f, de forma lineal con la frecuencia superior elegida.",
+      "log f, muy despacio al subir en el eje de frecuencia.",
+    ],
+    ans: 0,
+    why: "Interpretando kₓ,k_y,k_z como coordenadas de una red en el espacio k, contar modos hasta f equivale a medir el volumen del octante de esfera de radio k dividido por el volumen π³/V que ocupa cada punto. Sale N(f) = (4π/3)·V·(f/c)³, que crece con f³. Su derivada da la densidad modal (∝ f²), y por eso los modos se agolpan cada vez más rápido.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.26), p. 59",
+  },
+  {
+    id: "col-ku3-correccion-modos",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "En salas chicas a baja frecuencia, contar solo el término en f³…",
+    opts: [
+      "subestima: faltan términos con la superficie y las aristas.",
+      "sobrestima: el término cúbico cuenta modos que no existen.",
+      "da el valor exacto, sin necesidad de ninguna corrección.",
+      "solo falla si la sala tiene forma bastante irregular real.",
+    ],
+    ans: 0,
+    why: "El término (4π/3)·V·(f/c)³ solo cuenta bien los modos oblicuos: los tangenciales (en los planos coordenados) y los axiales (en los ejes) están compartidos entre octantes y quedan subcontados. La fórmula corregida agrega (π/4)·S·(f/c)² y L·f/8c. En el ejemplo de Kuttruff, para 116 Hz el término cúbico da 10 modos y la fórmula completa da 21: la corrección no es opcional en salas chicas.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.29), p. 60",
+  },
+  {
+    id: "col-ku3-forma-arbitraria",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "La fórmula del número de modos con f³ (límite de f grande) vale…",
+    opts: [
+      "para salas de forma cualquiera, no solo rectangulares.",
+      "solo para la caja rectangular exacta, nunca para otra.",
+      "solo si todas las paredes son perfectamente rígidas.",
+      "solo por encima de la frecuencia de Schroeder de la sala.",
+    ],
+    ans: 0,
+    why: "Aunque se dedujo para una caja, la fórmula N(f) = (4π/3)·V·(f/c)³ vale, en el límite de f grande, para cualquier forma de recinto: se puede pensar cualquier volumen como suma de muchas cajas pequeñas, y como la fórmula es lineal en V, los aportes se suman. Es el resultado de Weyl y solo depende del volumen, no de la geometría.",
+    src: "Kuttruff, Room Acoustics, cap. 3, p. 60",
+  },
+  {
+    id: "col-ku3-pared-masa-resorte",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "Frente a la pared rígida, una pared reactiva controlada por masa…",
+    opts: [
+      "sube el valor permitido de kₓ (Im ζ > 0, tipo masa).",
+      "baja el valor permitido de kₓ igual que un resorte.",
+      "deja kₓ idéntico al de la pared rígida en todo caso.",
+      "vuelve kₓ real solo si la pared no tiene pérdidas.",
+    ],
+    ans: 0,
+    why: "Para paredes casi rígidas (|ζ| ≫ 1), el corrimiento de kₓ es real si la impedancia es puramente reactiva. Si Im ζ > 0 (movimiento controlado por masa) el kₓ permitido sube respecto de la pared rígida; si Im ζ < 0 (pared con impedancia de resorte, compliante) el kₓ baja. Este corrimiento de kₓ es lo que desplaza las frecuencias propias, la base del modelado de Z como perturbación de frontera.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.34), p. 62",
+  },
+  {
+    id: "col-ku3-paredes-con-perdida",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 2,
+    q: "Con paredes que disipan energía (impedancia con parte real), el modo…",
+    opts: [
+      "ya no tiene nodos exactos: la presión no se anula del todo.",
+      "conserva nodos perfectos, solo que corridos en el espacio.",
+      "desaparece por completo apenas la pared absorbe un poco.",
+      "duplica su frecuencia propia respecto de la pared rígida.",
+    ],
+    ans: 0,
+    why: "Si la impedancia específica tiene parte real (hay pérdidas), kₓ se vuelve complejo y ya no existen nodos exactos: la amplitud de presión es distinta de cero en todos los puntos. Se entiende porque la pared disipa energía, que debe llegar mediante ondas viajeras hacia ella; una onda puramente estacionaria (con nodos perfectos) no transportaría esa energía.",
+    src: "Kuttruff, Room Acoustics, cap. 3, p. 62",
+  },
+  {
+    id: "col-ku3-residuos",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "El método de residuos ponderados que usa Kuttruff para el FEM parte de…",
+    opts: [
+      "multiplicar la ecuación por una función de prueba e integrar.",
+      "medir la presión en cada nodo y ajustar una curva por mínimos.",
+      "sortear rayos al azar y promediar su energía en cada nodo.",
+      "resolver la ecuación de onda exacta en todos los puntos reales.",
+    ],
+    ans: 0,
+    why: "En residuos ponderados se multiplica la ecuación de Helmholtz por una función de prueba (peso) v(r) y se integra sobre el volumen. Si valiera para toda v, el corchete sería cero (la ecuación exacta); con una solución aproximada queda un residuo, que el peso reparte por el dominio. Aplicando el teorema de Green aparece la condición de contorno y baja el orden de derivación: es la forma débil, base del FEM.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.36), p. 64",
+  },
+  {
+    id: "col-ku3-funciones-forma",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 2,
+    q: "En el FEM, cada «función de forma» φₙ está definida para valer…",
+    opts: [
+      "uno en su propio nodo y cero en todos los demás nodos.",
+      "uno en toda la sala, como una constante global fija.",
+      "cero en su nodo y uno en el resto de la malla dada.",
+      "la presión exacta medida en el nodo correspondiente.",
+    ],
+    ans: 0,
+    why: "La presión se aproxima como suma p ≈ Σ pₙφₙ(r), donde cada función de forma φₙ vale 1 en el nodo n y 0 en todos los demás; entre nodos se interpola (lineal en el caso simple). Así cada coeficiente pₙ es directamente la presión aproximada en ese nodo, y el soporte local de las φₙ es lo que vuelve rala la matriz del sistema.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.39), p. 64",
+  },
+  {
+    id: "col-ku3-matrices",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "El sistema FEM (K − k²M + ikC)·p = … tiene matrices que son…",
+    opts: [
+      "ralas y en banda: casi todo cero cerca de la diagonal.",
+      "totalmente llenas, con casi todos sus elementos no nulos.",
+      "diagonales exactas, sin términos fuera de la diagonal.",
+      "antisimétricas, con la diagonal principal siempre nula.",
+    ],
+    ans: 0,
+    why: "K (rigidez), M (masa) y C (amortiguamiento por la impedancia de pared) resultan ralas: un elemento es no nulo solo si dos nodos comparten elemento, y como cada nodo conecta con pocos vecinos, casi todo es cero. Con una numeración adecuada de nodos, los no nulos quedan en una banda angosta alrededor de la diagonal, lo que hace muy eficiente resolver el sistema.",
+    src: "Kuttruff, Room Acoustics, cap. 3 (Ec. 3.41), p. 65",
+  },
+  {
+    id: "col-ku3-nodos-por-lambda",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 2,
+    q: "Como regla práctica, un FEM acústico necesita, por longitud de onda…",
+    opts: [
+      "del orden de 3 a 10 nodos, y por eso escala mal arriba.",
+      "un solo nodo, sin importar la frecuencia de trabajo.",
+      "unos 100 nodos fijos, igual en graves que en agudos.",
+      "nodos solo sobre las paredes, nunca dentro del volumen.",
+    ],
+    ans: 0,
+    why: "La exactitud depende de la densidad de nodos: la literatura recomienda de 3 a 10 nodos por longitud de onda. Como λ baja con la frecuencia, el número de nodos crece rápido: en el ejemplo de Kuttruff, subir volumen o frecuencia ×10 lleva de ~320 a ~320.000 nodos. Por eso el FEM es práctico solo a baja frecuencia y en salas no muy grandes, justo el régimen bajo Schroeder.",
+    src: "Kuttruff, Room Acoustics, cap. 3, p. 66",
+  },
+  {
+    id: "col-ku3-maximos-no-modos",
+    seccion: "Cap. 3: Ondas en la sala", cat: "Cap. 3: Ondas en la sala", dif: 3,
+    q: "Por encima de fs, los máximos de la curva de frecuencia se deben a…",
+    opts: [
+      "coincidencias de fase casuales, no a resonancias sueltas.",
+      "una única resonancia modal aislada en cada máximo dado.",
+      "reflexiones especulares en las dos paredes más grandes.",
+      "la absorción del aire, que realza ciertas frecuencias.",
+    ],
+    ans: 0,
+    why: "Por encima de la frecuencia de Schroeder, en cada frecuencia se superponen muchos modos con fases al azar (fasores en el diagrama de Kuttruff). Un máximo aparece cuando muchos fasores apuntan casi igual y un mínimo cuando se cancelan: son coincidencias de fase accidentales, no resonancias individuales. Por eso mover la frecuencia o el punto de medición cambia por completo el detalle de la curva.",
+    src: "Kuttruff, Room Acoustics, cap. 3, p. 69",
   },
 
 ].map((q) => ({ ...q, fuente: "kuttruff-ra" }));

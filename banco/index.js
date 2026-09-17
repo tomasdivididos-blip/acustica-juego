@@ -7,6 +7,8 @@ import { NUMERICA } from "./numerica.js";
 import { NUMERICOS } from "./numericos.js";
 import { EVEREST_MHA } from "./colecciones/everest-mha.js";
 import { KUTTRUFF_RA } from "./colecciones/kuttruff-ra.js";
+import { MORSE_INGARD_TA } from "./colecciones/morse-ingard-ta.js";
+import { FEM_DESMET } from "./colecciones/fem-desmet.js";
 
 /** Áreas del juego — espejan la clasificación de referencias/_indice.md. */
 export const AREAS = [
@@ -18,10 +20,12 @@ export const AREAS = [
 
 // Colecciones: preguntas atadas a un documento aportado (ver plan_pdf_secciones.md).
 // Cada archivo en colecciones/ exporta su array; acá se registra su nombre visible.
-const COLS = [EVEREST_MHA, KUTTRUFF_RA];
+const COLS = [EVEREST_MHA, KUTTRUFF_RA, MORSE_INGARD_TA, FEM_DESMET];
 const COLECCION_META = {
   "everest-mha": "Everest, Master Handbook (muestra)",
   "kuttruff-ra": "Kuttruff, Room Acoustics",
+  "morse-ingard-ta": "Morse e Ingard, Theoretical Acoustics",
+  "fem-desmet": "Desmet y Vandepitte, FEM para acústica",
 };
 
 export const BANCO = [
