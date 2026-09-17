@@ -6,6 +6,7 @@ import { PSICOACUSTICA } from "./psicoacustica.js";
 import { NUMERICA } from "./numerica.js";
 import { NUMERICOS } from "./numericos.js";
 import { EVEREST_MHA } from "./colecciones/everest-mha.js";
+import { KUTTRUFF_RA } from "./colecciones/kuttruff-ra.js";
 
 /** Áreas del juego — espejan la clasificación de referencias/_indice.md. */
 export const AREAS = [
@@ -17,9 +18,10 @@ export const AREAS = [
 
 // Colecciones: preguntas atadas a un documento aportado (ver plan_pdf_secciones.md).
 // Cada archivo en colecciones/ exporta su array; acá se registra su nombre visible.
-const COLS = [EVEREST_MHA];
+const COLS = [EVEREST_MHA, KUTTRUFF_RA];
 const COLECCION_META = {
   "everest-mha": "Everest, Master Handbook (muestra)",
+  "kuttruff-ra": "Kuttruff, Room Acoustics",
 };
 
 export const BANCO = [

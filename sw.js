@@ -1,6 +1,6 @@
 // Service worker: cachea todo en la instalación → el juego anda 100% offline.
 // Al tocar cualquier archivo hay que subir VER, si no el celu sirve la copia vieja.
-const VER = "acu-20260916202519";
+const VER = "acu-20260917003137";
 const ASSETS = [
   "./",
   "./index.html",
@@ -14,6 +14,7 @@ const ASSETS = [
   "./banco/psicoacustica.js",
   "./banco/numerica.js",
   "./banco/colecciones/everest-mha.js",
+  "./banco/colecciones/kuttruff-ra.js",
   "./manifest.webmanifest",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
